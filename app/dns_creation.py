@@ -35,6 +35,8 @@ class TopDNSDomainNames(object):
         self.pcap = pcap
         self.domains = dict()
 
+        print(self.pcap)
+
     def domain_names(self):
         """Fit the pcap as input file to pyaiengine.PacketDispatcher,
            Gets the total number of packets process by the PacketDispatcher.
@@ -49,7 +51,6 @@ class TopDNSDomainNames(object):
                 else:
                     :return raise PcapFileNotFoundError
         """
-
         try:
             if self.pcap is not None:
                 with pyaiengine.PacketDispatcher(self.pcap) as pd:
@@ -68,9 +69,9 @@ class TopDNSDomainNames(object):
                             else:
                                 self.domains[name] += 1
 
-            raise PcapFileNotFoundError('Pcap file not found : {} '.format(self.pcap))
+            raise PcapFileNotFoundError('Pcap file not found : {}'.format(self.pcap))
 
-        except PcapFileNotFoundError as error:
+        except Exception as excep:
             # print('I/O Exception occured: ', error.message)
             pass
 
@@ -99,9 +100,8 @@ class TopDNSDomainNames(object):
                 :return creation_dict
 
         """
-
         creation_dict = dict()
-        for domain in domain_keys[0:20]:
+        for domain in domain_keys:
             try:
                 w = whois.whois(str(domain))
                 creation_dict[domain] = w["creation_date"]
@@ -110,5 +110,4 @@ class TopDNSDomainNames(object):
                 # creation_dict[domain] = w["creation_date"]
 
                 creation_dict[domain] = domain + ' ======== GETTING ERROR'
-
         return creation_dict

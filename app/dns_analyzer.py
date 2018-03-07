@@ -1,5 +1,3 @@
-print(__doc__)
-
 import sys
 import datetime
 from datetime import datetime as dt
@@ -30,7 +28,11 @@ def main():
     top = TopDNSDomainNames(pcap)
 
     domain = top.domain_names()  # domain dictionary
-    domain_date = top.domain_creation(domain.keys())
+    print('\n')
+    start = input('Starting index value  : ')
+    stop = input('Ending index value : ')
+
+    domain_date = top.domain_creation(domain.keys()[start:stop])
     print('\n')
 
     for domain_name, domain_creation in domain_date.iteritems():
