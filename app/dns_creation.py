@@ -109,5 +109,5 @@ class TopDNSDomainNames(object):
                 # w = whois.whois(str(whois.extract_domain(str(domain))))
                 # creation_dict[domain] = w["creation_date"]
 
-                creation_dict[domain] = domain + ' ======== GETTING ERROR'
+                creation_dict[domain] = domain + ' Sub Domain'
         return creation_dict
